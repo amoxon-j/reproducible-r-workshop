@@ -4,6 +4,8 @@
 # Use Bioconductor packages for various bioinformatics functions.
 # Use SummarizedExperiment to access an example dataset.
 
+
+
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
@@ -140,8 +142,13 @@ boxplot(log2(1+filteredCountsMat), las=2, cex.axis=0.5, cex=0.5,
 boxplot(log2(1+filteredCountsMatUQ), las=2, cex.axis=0.5, cex=0.5,
         ylab="log2(1+counts)")
 
+# save output file to directory rather than hard coded file location
+save_here_dir <- "results/"
+suppressWarnings(dir.create(save_here_dir))
+
 # Output: table of prepared gene expression data (counts x samples)
-write.csv(filteredCountsMatUQ, file = "/Users/iggy/projects/reproducible-r-workshop/filteredCountsMatUQ.csv")
+write.csv(filteredCountsMatUQ, file = paste0(save_here_dir,format(Sys.time(), "%Y-%m-%dT%H-%M-%S"), "_","filteredCountsMatUQ.csv"))
+
 
 # Exploratory plots to view the amount of data collected in each sample:
 # Plot the depth of sequencing per sample
